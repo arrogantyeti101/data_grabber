@@ -5,8 +5,8 @@ Tool that reads through a CSV of data.  Given the required information, it will 
 
 ## Okay...what?
 Sometimes you have a data warehouse that has been stripped of PII, but is otherwise much more convenient to query than a set of production databases with said PII.  Also sometimes, you WANT that PII in query results.
-In these circumstances, what we've ended up doing is querying the data we have in the warehouse alongside a unique identifier (ie - USER_ID) that can then be used to query information such as names and emails from prodction.
-After a couple of instance of this, I got tired of manually lining things up and checking.  So I automated it.
+In these circumstances, what we've ended up doing is querying the data we have in the warehouse alongside a unique identifier (ie - USER_ID) that can then be used to query information such as names and emails from production.
+After a couple of instances of this, I got tired of manually lining things up and checking.
 
 ## I dig it.  How does it work?
 You call the main script, data_grabber.sh, and supply the pertinent info:
