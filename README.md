@@ -20,5 +20,7 @@ You call the main script, data_grabber.sh, and supply the pertinent info:
 ## Example
 `./data_grabber.sh grab_data --db-host=localhost --db-name=mydb --db-role=myrole --fields=first:first_name last:last_name --id_field:user_id --table=public.users`
 
-## Prereqs?
-Written to work with postgres specifically.  Also requires a handful of gems, visible in Gemfile
+## Current Assumptions / Limitations
+* The database being used is PostgreSQL, uses the 'pg' gem.
+* There are column headers present in the source CSV.
+* The identifier is a single column.

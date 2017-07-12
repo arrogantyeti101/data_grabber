@@ -3,7 +3,7 @@ require 'smarter_csv'
 
 class DataGrabber
 
-  attr_reader :options, :db, :id_field, :table_to_query, :fields_to_query, :input_file
+  attr_reader :options, :db, :id_field, :table_to_query, :fields_to_query, :input_file, :output_file
 
   def initialize(options)
     @options          = options
@@ -11,6 +11,7 @@ class DataGrabber
     @table_to_query   = options[:table_to_query]
     @fields_to_query  = options[:fields_to_query]
     @input_file       = options[:input]
+    @output_file      = options[:output]
 
     setup_db_connection
   end
@@ -39,7 +40,7 @@ class DataGrabber
 
   def process
     input = SmarterCSV.process("./#{input_file}")
-    output = File.open('./output.csv', 'w')
+    output = File.open("./#{output_file}", 'w')
 
     input.each do |line|
       results = db.exec(query(line[id_field.to_sym]))[0]
