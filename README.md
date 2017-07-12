@@ -4,7 +4,7 @@
 Tool that reads through a CSV of data.  Given the required information, it will reach out to a database, query a set of columns (using aliases) from a specific table, and merge that info into the CSV data.
 
 ## Okay...what?
-Let's say you've got a baller data warehouse that co-locates data from several different production databases in a convenient place and manner, but for security reasons you've decided to not hosue any PII.
+Let's say you've got a baller data warehouse that co-locates data from several different production databases in a convenient place and manner, but for security reasons you've decided to not house any PII.
 Then let's say somebody important wants a bunch of data that specifically includes some PII.  It would be a million times easier to query the warehouse, but you don't have the PII in there that you need.
 Using this tool, you can export the data you DO have in the warehouse, alongside a uniquely identifiable column (ie - `USER_ID`).  Feed the necessary info to this script, and it will reach out and query
 your production database, grabbing the requested info, and plopping it back into a CSV output alongside the already-queried data.
