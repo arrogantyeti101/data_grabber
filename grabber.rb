@@ -17,11 +17,7 @@ class DataGrabber
   end
 
   def setup_db_connection
-    @db ||= PG::Connection.new(
-      :dbname => options[:db_opts][:dbname],
-      :host   => options[:db_opts][:host],
-      :user   => options[:db_opts][:user]
-    )
+    @db ||= PG::Connection.new(options[:db_opts])
   end
 
   def query(id)
