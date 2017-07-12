@@ -21,9 +21,13 @@ class Parser < Thor
       :user   => options[:db_role]
     }
 
+    fields_to_query = options[:fields].each_with_object({}) do |(key,val),f|
+      f[key.gsub(/ /,'_').downcase.to_sym] = val
+    end
+
     opts = {
       db_opts:          db_opts,
-      fields_to_query:  options[:fields],
+      fields_to_query:  fields_to_query,
       id_field:         options[:id_field],
       input:            options[:input],
       output:           options[:output],

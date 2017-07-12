@@ -3,13 +3,13 @@ require 'smarter_csv'
 
 class DataGrabber
 
-  attr_reader :options, :db, :id_field, :table_to_query, :fields_to_query, :input_file, :output_file
+  attr_reader :options, :db, :id_field, :table_to_query, :input_file, :output_file, :fields_to_query
 
   def initialize(options)
     @options          = options
     @id_field         = options[:id_field]
-    @table_to_query   = options[:table_to_query]
     @fields_to_query  = options[:fields_to_query]
+    @table_to_query   = options[:table_to_query]
     @input_file       = options[:input]
     @output_file      = options[:output]
 
@@ -30,7 +30,7 @@ class DataGrabber
 
   def queryable_fields
     fields_to_query.map do |als,field|
-      "#{field} AS #{als}"
+      "#{field} AS \"#{als.to_s}\""
     end.join(",")
   end
 
@@ -40,9 +40,7 @@ class DataGrabber
 
     input.each do |line|
       results = db.exec(query(line[id_field.to_sym]))[0]
-      fields_to_query.each do |field,queryable|
-        line[field.to_sym] = "\"#{results[field]}\""
-      end
+      fields_to_query.each { |field,queryable| line[field.to_sym] = "\"#{results[field.to_s]}\"" }
       output.puts line.values.join(",")
     end
 
