@@ -3,19 +3,24 @@ require 'smarter_csv'
 
 class DataGrabber
 
-  attr_reader :options, :db, :id_field, :table_to_query, :fields_to_query
+  attr_reader :options, :db, :id_field, :table_to_query, :fields_to_query, :input_file
 
   def initialize(options)
     @options          = options
     @id_field         = options[:id_field]
     @table_to_query   = options[:table_to_query]
     @fields_to_query  = options[:fields_to_query]
+    @input_file       = options[:input]
 
     setup_db_connection
   end
 
   def setup_db_connection
-    @db ||= PG::Connection.new(:dbname => options[:db_opts][:dbname], :host => options[:db_opts][:host], :user => options[:db_opts][:user])
+    @db ||= PG::Connection.new(
+      :dbname => options[:db_opts][:dbname],
+      :host   => options[:db_opts][:host],
+      :user   => options[:db_opts][:user]
+    )
   end
 
   def query(id)
@@ -33,7 +38,7 @@ class DataGrabber
   end
 
   def process
-    input = SmarterCSV.process('./tst.csv')
+    input = SmarterCSV.process("./#{input_file}")
     output = File.open('./output.csv', 'w')
 
     input.each do |line|
