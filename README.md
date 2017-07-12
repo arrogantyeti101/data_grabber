@@ -4,9 +4,10 @@
 Tool that reads through a CSV of data.  Given the required information, it will reach out to a database, query a set of columns (using aliases) from a specific table, and merge that info into the CSV data.
 
 ## Okay...what?
-Sometimes you have a data warehouse that has been stripped of PII, but is otherwise much more convenient to query than a set of production databases with said PII.  Also sometimes, you WANT that PII in query results.
-In these circumstances, what we've ended up doing is querying the data we have in the warehouse alongside a unique identifier (ie - USER_ID) that can then be used to query information such as names and emails from production.
-After a couple of instances of this, I got tired of manually lining things up and checking.
+Let's say you've got a baller data warehouse that co-locates data from several different production databases in a convenient place and manner, but for security reasons you've decided to not hosue any PII.
+Then let's say somebody important wants a bunch of data that specifically includes some PII.  It would be a million times easier to query the warehouse, but you don't have the PII in there that you need.
+Using this tool, you can export the data you DO have in the warehouse, alongside a uniquely identifiable column (ie - `USER_ID`).  Feed the necessary info to this script, and it will reach out and query
+your production database, grabbing the requested info, and plopping it back into a CSV output alongside the already-queried data.
 
 ## I dig it.  How does it work?
 You call the main script, data_grabber.sh, and supply the pertinent info:
