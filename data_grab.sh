@@ -13,6 +13,7 @@ class Parser < Thor
   option :input,            type: :string, required: true,                          desc: "Filename to import from"
   option :output,           type: :string, required: false, default: 'output.csv',  desc: "Filename to output to"
   option :table,            type: :string, required: true,                          desc: "schema-qualified table name to query"
+  option :headers,          type: :boolean,required: false, default: true,          desc: "True if headers should be in output file"
 
   def grab_data
     db_opts = {
@@ -31,7 +32,8 @@ class Parser < Thor
       id_field:         options[:id_field],
       input:            options[:input],
       output:           options[:output],
-      table_to_query:   options[:table]
+      table_to_query:   options[:table],
+      headers:          options[:headers]
     }
 
     DataGrabber.new(opts).process
